@@ -201,12 +201,14 @@ public class RingtoneFactory {
         return null;
     }
 
-    private boolean hasDefaultRingtoneForUser(Context userContext) {
+    private boolean hasDefaultRingtoneForUserBySlot(Context userContext, int phoneId) {
         if(userContext == null) {
             return false;
         }
+        String ringtoneSetting = phoneId == 1 ? Settings.System.RINGTONE2
+                : Settings.System.RINGTONE;
         return !TextUtils.isEmpty(Settings.System.getStringForUser(userContext.getContentResolver(),
-                Settings.System.RINGTONE, userContext.getUserId()));
+                ringtoneSetting, userContext.getUserId()));
     }
 
     private boolean isWorkContact(Call incomingCall) {
